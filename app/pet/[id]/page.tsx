@@ -1,0 +1,72 @@
+import { currencyConvert } from "@/lib/Currency/utils";
+import { createClient } from "@/lib/supabase/server";
+import calculateAge from "calculate-age";
+import Image from "next/image";
+import Link from "next/link";
+
+export type incomingId = {
+    params: {
+        id: number
+    }
+}
+
+const page = async ({ params }: incomingId) => {
+
+    const supabase = await createClient()
+    const { id } = await params;
+    const { data } = await supabase
+        .from("Pets")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+    const { data: { user } } = await supabase
+        .auth
+        .getUser()
+
+    const roomId = [data.owner_id, user.id].sort().join('_');
+
+    return (
+        <div className='flex flex-col min-h-screen md:items-center md:justify-center'>
+            <div className='flex flex-col md:flex-row gap-4 p-6 max-w-6xl items-center'>
+
+                {/* the Image */}
+                <div className="w-full max-w-lg">
+                    <Image
+                        src={data.image}
+                        alt={data.name}
+                        width={423}
+                        height={0}
+                        sizes="100vw"
+                        className="w-full h-auto object-contain"
+                    />
+                </div>
+
+                {/* Info about the pet */}
+                <div className="p-4 flex flex-col gap-6">
+                    <div className="flex flex-col gap-2">
+                        <p className='font-bold text-2xl'>{data.name}</p>
+                        <p className='text-xl font-bold text-yellow-300'>{currencyConvert(data.price)}</p>
+                        <p>{data.description}</p>
+                        <p className='px-4 py-1 max-w-fit shadow-md shadow-yellow-400/70 rounded-md'>{data.family}</p>
+                        <p className='px-4 py-1 max-w-fit shadow-md shadow-gray-400/70 rounded-md'>{data.breed}</p>
+                        <p>Age: {calculateAge(data.bday).getString()}</p>
+                    </div>
+                    <div className="flex flex-row gap-2">
+                        {user && user.id === data.owner_id ? (
+                            <Link href={`/edit/`} className="text-center rounded-md w-full shadow-md shadow-yellow-500/90 active:bg-yellow-500/90 px-4 py-2">
+                                Edit
+                            </Link>
+                        ) : (
+                            <Link href={`/chat/${roomId}`} className="text-center rounded-md w-full shadow-md shadow-green-700 active:bg-green-600 px-4 py-2">
+                                Contact Owner
+                            </Link>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default page
