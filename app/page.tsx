@@ -5,10 +5,10 @@ import { CiSearch } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
 import { petSearch } from '@/lib/supabase/PetSearch';
 import LoadSpinner from './components/LoadSpinner';
-import PetsList from './components/PetsList';
+import PetsList, { PetsType } from './components/PetsList';
 
-const page = () => {
-    const [pets, setPets] = useState<any[]>([]);
+const Page = () => {
+    const [pets, setPets] = useState<PetsType[]>([]);
     const [query, setQuery] = useState('');
     const [loading, setLoading] = useState(true)
     const [debouncedQuery] = useDebounce(query, 500);
@@ -51,4 +51,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from 'react'
 import SideBar from './SideBar'
-import { GoSidebarCollapse } from 'react-icons/go'
 import { BsReverseLayoutSidebarReverse } from "react-icons/bs";
 
 type layoutProp = {

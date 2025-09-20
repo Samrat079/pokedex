@@ -4,10 +4,10 @@ import { BsCloudUpload } from "react-icons/bs";
 import React, { FormEvent, useState } from 'react'
 import { ImSpinner2 } from 'react-icons/im';
 
-const page = () => {
+const Page = () => {
   const [preview, setPreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
-  const [ loading , setLoading ] = useState(false)
+  const [loading, setLoading] = useState(false)
   const supabase = createClient();
 
   // file preview
@@ -51,11 +51,14 @@ const page = () => {
     }
 
     const {
-      data: { user: { id } }, // got user if from user
-      // error: userError,
+      data: { user },
     } = await supabase.auth.getUser();
 
-    const { data, error } = await supabase
+    // Now `user` is `User | null`
+    const id = user?.id; // safe optional chaining
+
+
+    const { error } = await supabase
       .from('Pets')
       .insert({ name, breed, family, price, bday, description, owner_id: id, image: imgUrl })
       .select()
@@ -154,11 +157,11 @@ const page = () => {
           required
           className='p-4 rounded-md'
         />
-        <button 
-        className='p-4 rounded-md hover:bg-blue-400/80 bg-blue-400/40 md:col-span-2'
-        disabled={loading}
+        <button
+          className='p-4 rounded-md hover:bg-blue-400/80 bg-blue-400/40 md:col-span-2'
+          disabled={loading}
         >
-          {loading ? <ImSpinner2 size={32} className='animate-spin mx-auto' />: 'Submit'}
+          {loading ? <ImSpinner2 size={32} className='animate-spin mx-auto' /> : 'Submit'}
         </button>
         <p></p>
       </form >
@@ -166,4 +169,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

@@ -5,11 +5,12 @@ import React, { useEffect, useState } from 'react'
 import { formatDistance } from "date-fns";
 import LoadSpinner from '../components/LoadSpinner';
 import LogoutButton from '../components/logoutBtn';
-import PetsList from '../components/PetsList';
+import PetsList, { PetsType } from '../components/PetsList';
+import { User } from '@supabase/supabase-js';
 
 function Profile() {
-  const [user, setUser] = useState()
-  const [userPets, setUserPets] = useState([])
+  const [user, setUser] = useState<User | null>(null)
+  const [userPets, setUserPets] = useState<PetsType[]>([])
   const supabase = createClient();
 
   useEffect(() => {
@@ -18,7 +19,7 @@ function Profile() {
       setUser(data.user);
     };
     fetchUser();
-  }, []);
+  }, [supabase.auth]);
 
   useEffect(() => {
     const userPets = async () => {
@@ -27,15 +28,15 @@ function Profile() {
         .from('Pets')
         .select()
         .eq('owner_id', user.id);
-      setUserPets(data)
+      setUserPets(data ?? [])
     }
     userPets()
-  }, [user])
+  }, [supabase, user])
 
 
   if (!user) { return (<LoadSpinner />); }
 
-  const { email, aud, created_at, id } = user;
+  const { email, aud, created_at } = user;
   console.log(user);
   const logSince = formatDistance(new Date(created_at), new Date(), { addSuffix: true });
 

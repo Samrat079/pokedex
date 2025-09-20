@@ -13,10 +13,15 @@ export type PetsType = {
     image: string;
 };
 
-const PetsList = (props: PetsType) => {
+type PetsListProps = {
+  pets?: PetsType[]; // an array of pets
+};
+
+
+const PetsList = ({ pets }: PetsListProps) => {
     return (
         < div className="flex flex-wrap justify-center w-full gap-6" >
-            {props.pets?.map((pet: PetsType) => (
+            {pets?.map((pet: PetsType) => (
                 <Link href={`/pet/${pet.id}`} key={pet.id}>
                     <div className="max-w-[420px] h-[440px] rounded shadow-md shadow-white overflow-hidden flex flex-col">
                         <Image

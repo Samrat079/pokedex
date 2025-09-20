@@ -2,7 +2,7 @@
 import { createClient } from '@/lib/supabase/client';
 import React, { FormEvent, useState } from 'react'
 
-const login = () => {
+const Login = () => {
     const [status, setStatus] = useState({
         emoji: '',
         text: ''
@@ -63,4 +63,4 @@ const login = () => {
     )
 }
 
-export default login
+export default Login

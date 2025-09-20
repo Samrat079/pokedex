@@ -4,17 +4,11 @@ import calculateAge from "calculate-age";
 import Image from "next/image";
 import Link from "next/link";
 
-export type incomingId = {
-    params: {
-        id: number
-    }
-}
-
-const page = async ({ params }: incomingId) => {
+const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
     const supabase = await createClient()
     const { id } = await params;
-    const { data } = await supabase
+    const { data: pet } = await supabase
         .from("Pets")
         .select("*")
         .eq("id", id)
@@ -24,7 +18,7 @@ const page = async ({ params }: incomingId) => {
         .auth
         .getUser()
 
-    const roomId = [data.owner_id, user.id].sort().join('_');
+    const roomId = [pet.owner_id, user!.id].sort().join('_');
 
     return (
         <div className='flex flex-col min-h-screen md:items-center md:justify-center'>
@@ -33,8 +27,8 @@ const page = async ({ params }: incomingId) => {
                 {/* the Image */}
                 <div className="w-full max-w-lg">
                     <Image
-                        src={data.image}
-                        alt={data.name}
+                        src={pet.image}
+                        alt={pet.name}
                         width={423}
                         height={0}
                         sizes="100vw"
@@ -45,15 +39,15 @@ const page = async ({ params }: incomingId) => {
                 {/* Info about the pet */}
                 <div className="p-4 flex flex-col gap-6">
                     <div className="flex flex-col gap-2">
-                        <p className='font-bold text-2xl'>{data.name}</p>
-                        <p className='text-xl font-bold text-yellow-300'>{currencyConvert(data.price)}</p>
-                        <p>{data.description}</p>
-                        <p className='px-4 py-1 max-w-fit shadow-md shadow-yellow-400/70 rounded-md'>{data.family}</p>
-                        <p className='px-4 py-1 max-w-fit shadow-md shadow-gray-400/70 rounded-md'>{data.breed}</p>
-                        <p>Age: {calculateAge(data.bday).getString()}</p>
+                        <p className='font-bold text-2xl'>{pet.name}</p>
+                        <p className='text-xl font-bold text-yellow-300'>{currencyConvert(pet.price)}</p>
+                        <p>{pet.description}</p>
+                        <p className='px-4 py-1 max-w-fit shadow-md shadow-yellow-400/70 rounded-md'>{pet.family}</p>
+                        <p className='px-4 py-1 max-w-fit shadow-md shadow-gray-400/70 rounded-md'>{pet.breed}</p>
+                        <p>Age: {calculateAge(pet.bday).getString()}</p>
                     </div>
                     <div className="flex flex-row gap-2">
-                        {user && user.id === data.owner_id ? (
+                        {user && user.id === pet.owner_id ? (
                             <Link href={`/edit/`} className="text-center rounded-md w-full shadow-md shadow-yellow-500/90 active:bg-yellow-500/90 px-4 py-2">
                                 Edit
                             </Link>
@@ -69,4 +63,4 @@ const page = async ({ params }: incomingId) => {
     )
 }
 
-export default page
+export default Page
