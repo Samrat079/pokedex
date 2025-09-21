@@ -1,3 +1,4 @@
+import ContactOwner from "@/app/components/ContactOwner";
 import { currencyConvert } from "@/lib/Currency/utils";
 import { createClient } from "@/lib/supabase/server";
 import calculateAge from "calculate-age";
@@ -18,8 +19,6 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
         .auth
         .getUser()
 
-    const roomId = [pet.owner_id, user!.id].sort().join('_');
-
     return (
         <div className='flex flex-col min-h-screen md:items-center md:justify-center'>
             <div className='flex flex-col md:flex-row gap-4 p-6 max-w-6xl items-center'>
@@ -33,6 +32,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                         height={0}
                         sizes="100vw"
                         className="w-full h-auto object-contain"
+                        priority
                     />
                 </div>
 
@@ -48,13 +48,11 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                     </div>
                     <div className="flex flex-row gap-2">
                         {user && user.id === pet.owner_id ? (
-                            <Link href={`/edit/`} className="text-center rounded-md w-full shadow-md shadow-yellow-500/90 active:bg-yellow-500/90 px-4 py-2">
+                            <Link href={`/profile/`} className="text-center rounded-md w-full shadow-md shadow-yellow-500/90 active:bg-yellow-500/90 px-4 py-2">
                                 Edit
                             </Link>
                         ) : (
-                            <Link href={`/chat/${roomId}`} className="text-center rounded-md w-full shadow-md shadow-green-700 active:bg-green-600 px-4 py-2">
-                                Contact Owner
-                            </Link>
+                            <ContactOwner owner_id={pet.owner_id} />
                         )}
                     </div>
                 </div>

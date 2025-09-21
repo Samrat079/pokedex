@@ -7,6 +7,7 @@ const SideBar = () => {
         { name: "Home", Link: "/" },
         { name: "Profile", Link: "/profile" },
         { name: "Want to be a owner?", Link: "/addpets" },
+        // { name: 'Chat', Link: '/chat/34'}
     ];
 
     const sideBarStyle = 'h-screen bg-gray-200/10 overflow-hidden shadow-[inset_-14px_0px_16px_0px_rgba(0,0,0,0.5)] shadow-gray-400/20 flex flex-col justify-between';

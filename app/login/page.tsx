@@ -20,8 +20,11 @@ const Login = () => {
             email: emailId,
             options: {
                 shouldCreateUser: true,
+                emailRedirectTo: `${window.location.origin}`
             }
         })
+
+        console.log(window.location.origin);
 
         setStatus( error
             ? { emoji: '❌', text: `error: ${error}`}

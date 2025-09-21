@@ -31,6 +31,7 @@ const PetsList = ({ pets }: PetsListProps) => {
                             height={250} // fixed image height
                             sizes="350px"
                             className="w-[420px] h-[250px] object-cover" // fixed image sizing
+                            priority
                         />
                         <div className="p-4 flex-1 flex flex-col justify-between">
                             <p className="text-lg font-semibold">{pet.name}</p>

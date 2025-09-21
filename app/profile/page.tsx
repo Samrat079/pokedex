@@ -37,7 +37,7 @@ function Profile() {
   if (!user) { return (<LoadSpinner />); }
 
   const { email, aud, created_at } = user;
-  console.log(user);
+  // console.log(user);
   const logSince = formatDistance(new Date(created_at), new Date(), { addSuffix: true });
 
   return (
@@ -54,6 +54,7 @@ function Profile() {
               alt='Profile picture'
               width={160}
               height={160}
+              priority
             />
           </div>
           <div className='flex flex-col flex-1 gap-4 p-6 border rounded'>

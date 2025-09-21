@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/client'
 import { BsCloudUpload } from "react-icons/bs";
 import React, { FormEvent, useState } from 'react'
 import { ImSpinner2 } from 'react-icons/im';
+import Image from 'next/image';
 
 const Page = () => {
   const [preview, setPreview] = useState<string | null>(null);
@@ -54,9 +55,7 @@ const Page = () => {
       data: { user },
     } = await supabase.auth.getUser();
 
-    // Now `user` is `User | null`
     const id = user?.id; // safe optional chaining
-
 
     const { error } = await supabase
       .from('Pets')
@@ -83,10 +82,13 @@ const Page = () => {
           >
             {/* Show preview inside box */}
             {preview ? (
-              <img
+              <Image
                 src={preview}
                 alt="preview"
-                className="absolute inset-0 w-full h-full object-cover rounded-lg opacity-50"
+                fill
+                className="object-cover rounded-lg opacity-50"
+                style={{ objectFit: 'cover', opacity: 0.8 }}
+                sizes="100vw"
               />
             ) : (
               // default text
