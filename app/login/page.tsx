@@ -5,10 +5,7 @@ import { createClient } from '@/lib/supabase/client';
 
 const Login = () => {
     const router = useRouter();
-    const [status, setStatus] = useState({
-        emoji: '',
-        text: ''
-    })
+    const [status, setStatus] = useState({emoji: '', text: ''})
 
     async function handleLogin(e: FormEvent<HTMLFormElement>) {
         setStatus({emoji:'⏳', text: 'Please wait...'})
@@ -41,7 +38,7 @@ const Login = () => {
                         name='email'
                         alt='add email id'
                         placeholder='example@example.com'
-                        className='bg-transparent focus:outline-none'
+                        className='bg-transparent focus:outline-none w-full'
                     />
                 </div>
                 <div className='grid gap-3'>
@@ -51,8 +48,9 @@ const Login = () => {
                     </p>
                     <button
                         type='submit'
-                        className='bg-blue-600/80 rounded'>
-                        Login
+                        className='bg-blue-600/80 rounded-md'
+                        disabled={status.emoji == '⏳'}>
+                        Send OTP
                     </button>
                 </div>
             </form>

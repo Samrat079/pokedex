@@ -34,15 +34,15 @@ const Page = () => {
             <form
                 onSubmit={submitHandler}
                 className='rounded shadow-md shadow-white border p-6 w-full max-w-80 grid gap-4'>
-                <p className='text-lg'>Enter OTP</p>
+                <p className='text-lg'>Verify OTP</p>
                 <div>
                     <p className='text-sm'>OTP</p>
                     <input
                         type='number'
                         name='otp'
                         alt='verify otp'
-                        placeholder='345678'
-                        className='bg-transparent focus:outline-none'
+                        placeholder='Enter your OTP'
+                        className='bg-transparent focus:outline-none w-full'
                     />
                 </div>
                 <div className='grid gap-3'>
