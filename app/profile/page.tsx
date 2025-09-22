@@ -36,7 +36,7 @@ function Profile() {
 
   if (!user) { return (<LoadSpinner />); }
 
-  const { email, aud, created_at } = user;
+  const { email, created_at, user_metadata } = user;
   // console.log(user);
   const logSince = formatDistance(new Date(created_at), new Date(), { addSuffix: true });
 
@@ -60,7 +60,7 @@ function Profile() {
           <div className='flex flex-col flex-1 gap-4 p-6 border rounded'>
             <p>email: {email}</p>
             {/* <p>user id: {id}</p> */}
-            <p>Status: {aud}</p>
+            <p>Username: {user_metadata.userName || 'No Username'}</p>
             <p>Logged in:{' '}{logSince}</p>
             <LogoutButton />
           </div>
