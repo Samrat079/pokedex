@@ -41,7 +41,7 @@ function Profile() {
   const logSince = formatDistance(new Date(created_at), new Date(), { addSuffix: true });
 
   return (
-    <div className='flex flex-col items-center justify-center gap-6 md:p-6'>
+    <div className='flex flex-col items-center justify-center gap-6 mt-20 md:p-6'>
 
       {/* profile box */}
       <div className='w-full bg-gray-500/40 md:p-6 rounded'>

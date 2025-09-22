@@ -70,7 +70,7 @@ const Page = () => {
   }
 
   return (
-    <div className='flex flex-col gap-6 items-center justify-center md:p-6'>
+    <div className='flex flex-col gap-6 items-center justify-center mt-20 md:p-6'>
       <form
         className='flex flex-col gap-6 w-full border rounded shadow-md shadow-white p-6'
         onSubmit={addPets}

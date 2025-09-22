@@ -28,7 +28,7 @@ const Page = () => {
     }
 
     return (
-        <div className='flex flex-col items-center justify-center'>
+        <div className='flex flex-col items-center justify-center pt-12'>
             <div className='w-full max-w-lg rounded-full overflow-hidden border my-2 flex flex-row gap-2'>
                 <input
                     value={query}

@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/client'
 import { User } from '@supabase/supabase-js';
 import { useParams } from 'next/navigation'
 import { LuSend } from "react-icons/lu";
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 interface Message {
     id: number;
@@ -76,19 +76,16 @@ const Page = () => {
 
 
     return (
-        <div className="w-full flex flex-col items-center"
-            style={{ height: 'calc(100vh - 3rem)' }}>
+        <div className="w-full flex flex-col items-center h-screen">
             {/* Messages container */}
             <div className="flex-1 w-full overflow-y-auto pt-4 px-6">
                 {messages.map((msg) => (
                     <div
                         key={msg.id}
-                        className={`max-w-xs md:max-w-md px-4 py-2 rounded-2xl text-white mb-2 ${msg.sender_id === user?.id
+                        className={`w-fit max-w-md px-4 py-2 rounded-2xl text-white mb-2 ${msg.sender_id === user?.id
                             ? "ml-auto bg-blue-400/80 text-right"
-                            : "mr-auto bg-gray-800 text-left"
-                            }`}
+                            : "mr-auto bg-gray-800 text-left"}`}
                     >
-                        <p className="text-xs opacity-70">{msg.sender_id}</p>
                         <p className="break-words">{msg.body}</p>
                     </div>
                 ))}
@@ -97,8 +94,7 @@ const Page = () => {
             {/* Input form */}
             <form
                 onSubmit={handleSubmit}
-                className="w-full pb-6 flex items-center max-w-2xl"
-            >
+                className="w-full md:mb-8 flex items-center max-w-2xl">
                 <input
                     name="msg"
                     id="msg"

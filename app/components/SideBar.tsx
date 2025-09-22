@@ -15,7 +15,7 @@ const SideBar = () => {
     return (
         <aside className={sideBarStyle}>
             <div className='px-6 py-4'>
-                <p className='font-bold text-3xl '>PokeDex</p>
+                <p className='font-bold text-3xl'>PokeDex</p>
                 <nav className='grid gap-2 py-6'>
                     {pages.map((page, index) => (
                         <Link key={index} href={page.Link}>{page.name}</Link>

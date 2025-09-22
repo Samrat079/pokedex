@@ -20,7 +20,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
         .getUser()
 
     return (
-        <div className='flex flex-col min-h-screen md:items-center md:justify-center'>
+        <div className='flex flex-col h-full md:items-center md:justify-center mt-20'>
             <div className='flex flex-col md:flex-row gap-4 p-6 max-w-6xl items-center'>
 
                 {/* the Image */}
