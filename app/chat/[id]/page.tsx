@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/client'
 import { User } from '@supabase/supabase-js';
 import { useParams } from 'next/navigation'
 import { LuSend } from "react-icons/lu";
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface Message {
     id: number;

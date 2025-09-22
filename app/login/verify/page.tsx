@@ -1,15 +1,18 @@
 'use client'
 import { createClient } from '@/lib/supabase/client';
-import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Page = () => {
     const supabase = createClient();
     const router = useRouter();
-    const searchParams = useSearchParams()
-    const email = searchParams.get('email') || '';
+    const [email, setEmail] = useState('');
     const [status, setStatus] = useState({ emoji: '📬', text: 'Check your email for OTP' })
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        setEmail(params.get('email') || '');
+    }, []);
 
     const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         setStatus({ emoji: '⏳', text: 'Please wait...' })
@@ -27,7 +30,7 @@ const Page = () => {
             router.push(`/`);
             return;
         }
-        setStatus({emoji:'❌', text: `error: ${error.message}`})
+        setStatus({ emoji: '❌', text: `error: ${error.message}` })
     }
     return (
         <div className='min-h-screen flex flex-col items-center justify-center'>
