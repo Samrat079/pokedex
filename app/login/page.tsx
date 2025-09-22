@@ -1,45 +1,39 @@
 'use client'
-import { createClient } from '@/lib/supabase/client';
 import React, { FormEvent, useState } from 'react'
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
 
 const Login = () => {
+    const router = useRouter();
     const [status, setStatus] = useState({
         emoji: '',
         text: ''
     })
 
-    async function submitHandler(e: FormEvent<HTMLFormElement>) {
+    async function handleLogin(e: FormEvent<HTMLFormElement>) {
+        setStatus({emoji:'⏳', text: 'Please wait...'})
         e.preventDefault();
-        const form = e.currentTarget;
-        const formData = new FormData(form);
+        const formData = new FormData(e.currentTarget);
         const emailId = formData.get('email') as string;
-        setStatus({ emoji: '🚀', text: 'Please wait' })
 
         const supabase = createClient();
         const { error } = await supabase.auth.signInWithOtp({
-            email: emailId,
-            options: {
-                shouldCreateUser: true,
-                emailRedirectTo: `${window.location.origin}`
-            }
+            email: emailId
         })
 
-        console.log(window.location.origin);
-
-        setStatus( error
-            ? { emoji: '❌', text: `error: ${error}`}
-            : { emoji: '✅', text: 'Please check your email for magic link' }
-        )
-
-        if(!error) form.reset();
+        if (!error) {
+            router.push(`/login/verify?email=${encodeURIComponent(emailId)}`);
+            return;
+        }
+        setStatus({emoji:'❌', text: `error: ${error!.message}`})
     }
 
     return (
         <div className='min-h-screen flex flex-col items-center justify-center'>
             <form
-                onSubmit={submitHandler}
+                onSubmit={handleLogin}
                 className='rounded shadow-md shadow-white border p-6 w-full max-w-80 grid gap-4'>
-                <p className='text-lg'>Login or SignUp</p>
+                <p className='text-lg'>Login with OTP</p>
                 <div>
                     <p className='text-sm'>Email</p>
                     <input
@@ -47,7 +41,7 @@ const Login = () => {
                         name='email'
                         alt='add email id'
                         placeholder='example@example.com'
-                        className='bg-black focus:outline-none'
+                        className='bg-transparent focus:outline-none'
                     />
                 </div>
                 <div className='grid gap-3'>
