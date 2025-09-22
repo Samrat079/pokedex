@@ -72,10 +72,10 @@ const Page = () => {
   return (
     <div className='flex flex-col gap-6 items-center justify-center md:p-6'>
       <form
-        className='grid grid-cols-1 md:grid-cols-2 gap-6 w-full border rounded shadow-md shadow-white p-6'
+        className='flex flex-col gap-6 w-full border rounded shadow-md shadow-white p-6'
         onSubmit={addPets}
       >
-        <div className="md:col-span-2 flex items-center justify-center">
+        <div className="flex items-center justify-center">
           <label
             htmlFor="file-upload"
             className="w-full h-80 flex flex-col items-center justify-center border-2 border-dashed border-gray-400 rounded-lg cursor-pointer bg-blue-400/20 hover:bg-blue-400/40 transition relative overflow-hidden"
@@ -92,7 +92,7 @@ const Page = () => {
               />
             ) : (
               // default text
-              < div className="text-white text-lg relative flex flex-col items-center">
+              < div className="w-full text-white text-lg relative flex flex-col items-center">
                 <BsCloudUpload size={30} />
                 <p>Drag or Browse file here</p>
                 <p className='italic text-white/80 text-sm'>accepts .jpg, .png file formats</p>
@@ -116,7 +116,7 @@ const Page = () => {
           name='name'
           placeholder='name'
           required
-          className='p-4 rounded-md col-span-2'
+          className='p-4 rounded-md'
         />
         {/* breed */}
         <input
@@ -139,7 +139,7 @@ const Page = () => {
           name='description'
           placeholder='description'
           required
-          className='p-4 rounded-md col-span-2'
+          className='p-4 rounded-md'
         />
         {/* price */}
         <input
