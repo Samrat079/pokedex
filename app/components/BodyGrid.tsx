@@ -20,9 +20,9 @@ const BodyGrid = ({ children }: layoutProp) => {
     },[])
 
     // sizing for the main content
-    const contentResize = `flex-1 ${barIsOpen && 'ml-60'} transition-all ease-out duration-300 h-screen overflow-y-auto`;
+    const contentResize = `flex-1 ${barIsOpen && 'ml-60'} transition-all ease-out duration-300 min-h-screen overflow-y-auto`;
     const sideBarResizer = `fixed ${barIsOpen ? 'w-60' : 'w-0'} transition-all ease-out duration-300 z-20`;
-    const topBarResuizer = `sticky top-0 z-10 w-full bg-white bg-opacity-10 backdrop-blur-md p-2 flex felx-col gap-6 items-center`;
+    const topBarResuizer = `fixed top-0 z-10 w-full bg-white bg-opacity-10 backdrop-blur-md p-2 flex felx-col gap-6 items-center`;
 
     return (
         <div className="flex">
@@ -43,7 +43,7 @@ const BodyGrid = ({ children }: layoutProp) => {
                 </div>
 
                 {/* main content */}
-                <main className="">{children}</main>
+                <main className="mt-12">{children}</main>
             </div>
         </div>
     )

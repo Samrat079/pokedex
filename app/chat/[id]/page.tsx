@@ -76,7 +76,8 @@ const Page = () => {
 
 
     return (
-        <div className="w-full flex flex-col items-center h-screen">
+        <div className="w-full flex flex-col items-center"
+        style={{height: 'calc(100vh - 3rem)'}}>
             {/* Messages container */}
             <div className="flex-1 w-full overflow-y-auto pt-4 px-6">
                 {messages.map((msg) => (
