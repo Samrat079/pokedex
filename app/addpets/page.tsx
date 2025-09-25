@@ -28,8 +28,6 @@ const Page = () => {
     const formData = new FormData(form); // form data for upload
     const formDataObj = Object.fromEntries(formData.entries()) // formData into obj to destructure 
 
-    const { name, breed, family, price, bday, description } = formDataObj;
-
     let imgUrl = '';
 
     if (file && file.size > 0) {
@@ -51,22 +49,16 @@ const Page = () => {
       imgUrl = publicUrlData.publicUrl;
     }
 
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    const id = user?.id; // safe optional chaining
-
+    const { data: { user }} = await supabase.auth.getUser();
     const { error } = await supabase
       .from('Pets')
-      .insert({ name, breed, family, price, bday, description, owner_id: id, image: imgUrl })
+      .insert({ ...formDataObj, owner_id: user?.id, image: imgUrl })
       .select()
 
     if (error) { console.log(error) }
-    // console.log(data)
-    // console.log(file, preview)
     form.reset()
     setLoading(false)
+    setPreview(null)
   }
 
   return (

@@ -1,3 +1,4 @@
+'use server'
 import ContactOwner from "@/app/components/ContactOwner";
 import { currencyConvert } from "@/lib/Currency/utils";
 import { createClient } from "@/lib/supabase/server";
