@@ -147,6 +147,7 @@ const Page = () => {
         <input
           type='date'
           name='bday'
+          max={new Date().toISOString().split("T")[0]} // prevent future date
           placeholder='birthday'
           required
           className='p-4 rounded-md'
